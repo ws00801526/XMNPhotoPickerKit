@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		972D3D6F1C59E9F800B057BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D6E1C59E9F800B057BD /* main.m */; };
+		972D3D721C59E9F800B057BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D711C59E9F800B057BD /* AppDelegate.m */; };
+		972D3D751C59E9F800B057BD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D741C59E9F800B057BD /* ViewController.m */; };
+		972D3D781C59E9F800B057BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 972D3D761C59E9F800B057BD /* Main.storyboard */; };
+		972D3D7A1C59E9F800B057BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972D3D791C59E9F800B057BD /* Assets.xcassets */; };
+		972D3D7D1C59E9F800B057BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 972D3D7B1C59E9F800B057BD /* LaunchScreen.storyboard */; };
+		972D3D891C59EAAF00B057BD /* XMNPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D881C59EAAF00B057BD /* XMNPhotoManager.m */; };
+		972D3D8F1C59EC0100B057BD /* XMNAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D8E1C59EC0100B057BD /* XMNAlbumModel.m */; };
+		972D3D921C59EF3F00B057BD /* XMNAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D911C59EF3F00B057BD /* XMNAssetModel.m */; };
+		972D3D9A1C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D991C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.m */; };
+		972D3DA21C5A069700B057BD /* XMNPhotoManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3DA11C5A069700B057BD /* XMNPhotoManagerTest.m */; };
+		972D3DA51C5A0FA700B057BD /* XMNPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3DA41C5A0FA700B057BD /* XMNPhotoPickerController.m */; };
+		972D3DA81C5A160500B057BD /* XMNAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3DA71C5A160500B057BD /* XMNAlbumCell.m */; };
+		972D3DAA1C5A161200B057BD /* XMNAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972D3DA91C5A161200B057BD /* XMNAlbumCell.xib */; };
+		972D3DAD1C5A1C2700B057BD /* XMNAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3DAC1C5A1C2700B057BD /* XMNAssetCell.m */; };
+		972D3DAF1C5A1C3200B057BD /* XMNAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972D3DAE1C5A1C3200B057BD /* XMNAssetCell.xib */; };
+		972D471E1C5B068E005C2AB1 /* XMNPhotoCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D471D1C5B068E005C2AB1 /* XMNPhotoCollectionController.m */; };
+		972D47201C5B0915005C2AB1 /* PhotoPickerKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972D471F1C5B0915005C2AB1 /* PhotoPickerKit.xcassets */; };
+		972D47231C5B1B5D005C2AB1 /* UIView+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D47221C5B1B5D005C2AB1 /* UIView+Animations.m */; };
+		972D47261C5B1CA5005C2AB1 /* XMNBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D47251C5B1CA5005C2AB1 /* XMNBottomBar.m */; };
+		972D47281C5B1CB0005C2AB1 /* XMNBottomBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972D47271C5B1CB0005C2AB1 /* XMNBottomBar.xib */; };
+		972D472B1C5B3F5D005C2AB1 /* XMNPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D472A1C5B3F5D005C2AB1 /* XMNPhotoPreviewController.m */; };
+		972D472E1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D472D1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.m */; };
+		972D47311C5B6864005C2AB1 /* XMNVideoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D47301C5B6864005C2AB1 /* XMNVideoPreviewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		972D3D9C1C5A067C00B057BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 972D3D621C59E9F800B057BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 972D3D691C59E9F800B057BD;
+			remoteInfo = XMNPhotoPickerKitExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		972D3D6A1C59E9F800B057BD /* XMNPhotoPickerKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMNPhotoPickerKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		972D3D6E1C59E9F800B057BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		972D3D701C59E9F800B057BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		972D3D711C59E9F800B057BD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		972D3D731C59E9F800B057BD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		972D3D741C59E9F800B057BD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		972D3D771C59E9F800B057BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		972D3D791C59E9F800B057BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		972D3D7C1C59E9F800B057BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		972D3D7E1C59E9F800B057BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		972D3D851C59EA1400B057BD /* XMNPhotoPickerKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMNPhotoPickerKit.h; sourceTree = "<group>"; };
+		972D3D861C59EA2200B057BD /* XMNPhotoPickerDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMNPhotoPickerDefines.h; sourceTree = "<group>"; };
+		972D3D871C59EAAF00B057BD /* XMNPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNPhotoManager.h; sourceTree = "<group>"; };
+		972D3D881C59EAAF00B057BD /* XMNPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoManager.m; sourceTree = "<group>"; };
+		972D3D8D1C59EC0100B057BD /* XMNAlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNAlbumModel.h; sourceTree = "<group>"; };
+		972D3D8E1C59EC0100B057BD /* XMNAlbumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNAlbumModel.m; sourceTree = "<group>"; };
+		972D3D901C59EF3F00B057BD /* XMNAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNAssetModel.h; sourceTree = "<group>"; };
+		972D3D911C59EF3F00B057BD /* XMNAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNAssetModel.m; sourceTree = "<group>"; };
+		972D3D971C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XMNPhotoPickerKitExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		972D3D991C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoPickerKitExampleTests.m; sourceTree = "<group>"; };
+		972D3D9B1C5A067C00B057BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		972D3DA11C5A069700B057BD /* XMNPhotoManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoManagerTest.m; sourceTree = "<group>"; };
+		972D3DA31C5A0FA700B057BD /* XMNPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNPhotoPickerController.h; sourceTree = "<group>"; };
+		972D3DA41C5A0FA700B057BD /* XMNPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoPickerController.m; sourceTree = "<group>"; };
+		972D3DA61C5A160500B057BD /* XMNAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNAlbumCell.h; sourceTree = "<group>"; };
+		972D3DA71C5A160500B057BD /* XMNAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNAlbumCell.m; sourceTree = "<group>"; };
+		972D3DA91C5A161200B057BD /* XMNAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMNAlbumCell.xib; sourceTree = "<group>"; };
+		972D3DAB1C5A1C2700B057BD /* XMNAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNAssetCell.h; sourceTree = "<group>"; };
+		972D3DAC1C5A1C2700B057BD /* XMNAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNAssetCell.m; sourceTree = "<group>"; };
+		972D3DAE1C5A1C3200B057BD /* XMNAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMNAssetCell.xib; sourceTree = "<group>"; };
+		972D471C1C5B068E005C2AB1 /* XMNPhotoCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNPhotoCollectionController.h; sourceTree = "<group>"; };
+		972D471D1C5B068E005C2AB1 /* XMNPhotoCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoCollectionController.m; sourceTree = "<group>"; };
+		972D471F1C5B0915005C2AB1 /* PhotoPickerKit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PhotoPickerKit.xcassets; sourceTree = "<group>"; };
+		972D47211C5B1B5D005C2AB1 /* UIView+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animations.h"; sourceTree = "<group>"; };
+		972D47221C5B1B5D005C2AB1 /* UIView+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animations.m"; sourceTree = "<group>"; };
+		972D47241C5B1CA5005C2AB1 /* XMNBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNBottomBar.h; sourceTree = "<group>"; };
+		972D47251C5B1CA5005C2AB1 /* XMNBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNBottomBar.m; sourceTree = "<group>"; };
+		972D47271C5B1CB0005C2AB1 /* XMNBottomBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMNBottomBar.xib; sourceTree = "<group>"; };
+		972D47291C5B3F5D005C2AB1 /* XMNPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNPhotoPreviewController.h; sourceTree = "<group>"; };
+		972D472A1C5B3F5D005C2AB1 /* XMNPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoPreviewController.m; sourceTree = "<group>"; };
+		972D472C1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNPhotoPreviewCell.h; sourceTree = "<group>"; };
+		972D472D1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoPreviewCell.m; sourceTree = "<group>"; };
+		972D472F1C5B6864005C2AB1 /* XMNVideoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNVideoPreviewController.h; sourceTree = "<group>"; };
+		972D47301C5B6864005C2AB1 /* XMNVideoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNVideoPreviewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		972D3D671C59E9F800B057BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		972D3D941C5A067C00B057BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		972D3D611C59E9F800B057BD = {
+			isa = PBXGroup;
+			children = (
+				972D3D841C59EA0700B057BD /* XMNPhotoPickerKit */,
+				972D3D6C1C59E9F800B057BD /* XMNPhotoPickerKitExample */,
+				972D3D981C5A067C00B057BD /* XMNPhotoPickerKitExampleTests */,
+				972D3D6B1C59E9F800B057BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		972D3D6B1C59E9F800B057BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				972D3D6A1C59E9F800B057BD /* XMNPhotoPickerKitExample.app */,
+				972D3D971C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		972D3D6C1C59E9F800B057BD /* XMNPhotoPickerKitExample */ = {
+			isa = PBXGroup;
+			children = (
+				972D3D701C59E9F800B057BD /* AppDelegate.h */,
+				972D3D711C59E9F800B057BD /* AppDelegate.m */,
+				972D3D731C59E9F800B057BD /* ViewController.h */,
+				972D3D741C59E9F800B057BD /* ViewController.m */,
+				972D3D761C59E9F800B057BD /* Main.storyboard */,
+				972D3D791C59E9F800B057BD /* Assets.xcassets */,
+				972D3D7B1C59E9F800B057BD /* LaunchScreen.storyboard */,
+				972D3D7E1C59E9F800B057BD /* Info.plist */,
+				972D3D6D1C59E9F800B057BD /* Supporting Files */,
+			);
+			path = XMNPhotoPickerKitExample;
+			sourceTree = "<group>";
+		};
+		972D3D6D1C59E9F800B057BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				972D3D6E1C59E9F800B057BD /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		972D3D841C59EA0700B057BD /* XMNPhotoPickerKit */ = {
+			isa = PBXGroup;
+			children = (
+				972D3D8A1C59EBD400B057BD /* Controllers */,
+				972D3D8B1C59EBD400B057BD /* Models */,
+				972D3D8C1C59EBD400B057BD /* Views */,
+				972D3D851C59EA1400B057BD /* XMNPhotoPickerKit.h */,
+				972D3D861C59EA2200B057BD /* XMNPhotoPickerDefines.h */,
+				972D3D871C59EAAF00B057BD /* XMNPhotoManager.h */,
+				972D3D881C59EAAF00B057BD /* XMNPhotoManager.m */,
+				972D47211C5B1B5D005C2AB1 /* UIView+Animations.h */,
+				972D47221C5B1B5D005C2AB1 /* UIView+Animations.m */,
+				972D471F1C5B0915005C2AB1 /* PhotoPickerKit.xcassets */,
+			);
+			path = XMNPhotoPickerKit;
+			sourceTree = "<group>";
+		};
+		972D3D8A1C59EBD400B057BD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				972D3DA31C5A0FA700B057BD /* XMNPhotoPickerController.h */,
+				972D3DA41C5A0FA700B057BD /* XMNPhotoPickerController.m */,
+				972D471C1C5B068E005C2AB1 /* XMNPhotoCollectionController.h */,
+				972D471D1C5B068E005C2AB1 /* XMNPhotoCollectionController.m */,
+				972D47291C5B3F5D005C2AB1 /* XMNPhotoPreviewController.h */,
+				972D472A1C5B3F5D005C2AB1 /* XMNPhotoPreviewController.m */,
+				972D472F1C5B6864005C2AB1 /* XMNVideoPreviewController.h */,
+				972D47301C5B6864005C2AB1 /* XMNVideoPreviewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		972D3D8B1C59EBD400B057BD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				972D3D8D1C59EC0100B057BD /* XMNAlbumModel.h */,
+				972D3D8E1C59EC0100B057BD /* XMNAlbumModel.m */,
+				972D3D901C59EF3F00B057BD /* XMNAssetModel.h */,
+				972D3D911C59EF3F00B057BD /* XMNAssetModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		972D3D8C1C59EBD400B057BD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				972D3DA61C5A160500B057BD /* XMNAlbumCell.h */,
+				972D3DA71C5A160500B057BD /* XMNAlbumCell.m */,
+				972D3DA91C5A161200B057BD /* XMNAlbumCell.xib */,
+				972D3DAB1C5A1C2700B057BD /* XMNAssetCell.h */,
+				972D3DAC1C5A1C2700B057BD /* XMNAssetCell.m */,
+				972D3DAE1C5A1C3200B057BD /* XMNAssetCell.xib */,
+				972D472C1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.h */,
+				972D472D1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.m */,
+				972D47241C5B1CA5005C2AB1 /* XMNBottomBar.h */,
+				972D47251C5B1CA5005C2AB1 /* XMNBottomBar.m */,
+				972D47271C5B1CB0005C2AB1 /* XMNBottomBar.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		972D3D981C5A067C00B057BD /* XMNPhotoPickerKitExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				972D3D991C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.m */,
+				972D3D9B1C5A067C00B057BD /* Info.plist */,
+				972D3DA11C5A069700B057BD /* XMNPhotoManagerTest.m */,
+			);
+			path = XMNPhotoPickerKitExampleTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		972D3D691C59E9F800B057BD /* XMNPhotoPickerKitExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 972D3D811C59E9F800B057BD /* Build configuration list for PBXNativeTarget "XMNPhotoPickerKitExample" */;
+			buildPhases = (
+				972D3D661C59E9F800B057BD /* Sources */,
+				972D3D671C59E9F800B057BD /* Frameworks */,
+				972D3D681C59E9F800B057BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XMNPhotoPickerKitExample;
+			productName = XMNPhotoPickerKitExample;
+			productReference = 972D3D6A1C59E9F800B057BD /* XMNPhotoPickerKitExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		972D3D961C5A067C00B057BD /* XMNPhotoPickerKitExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 972D3D9E1C5A067C00B057BD /* Build configuration list for PBXNativeTarget "XMNPhotoPickerKitExampleTests" */;
+			buildPhases = (
+				972D3D931C5A067C00B057BD /* Sources */,
+				972D3D941C5A067C00B057BD /* Frameworks */,
+				972D3D951C5A067C00B057BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				972D3D9D1C5A067C00B057BD /* PBXTargetDependency */,
+			);
+			name = XMNPhotoPickerKitExampleTests;
+			productName = XMNPhotoPickerKitExampleTests;
+			productReference = 972D3D971C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		972D3D621C59E9F800B057BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = XMFraker;
+				TargetAttributes = {
+					972D3D691C59E9F800B057BD = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = N9G92VG962;
+					};
+					972D3D961C5A067C00B057BD = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 972D3D691C59E9F800B057BD;
+					};
+				};
+			};
+			buildConfigurationList = 972D3D651C59E9F800B057BD /* Build configuration list for PBXProject "XMNPhotoPickerKitExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 972D3D611C59E9F800B057BD;
+			productRefGroup = 972D3D6B1C59E9F800B057BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				972D3D691C59E9F800B057BD /* XMNPhotoPickerKitExample */,
+				972D3D961C5A067C00B057BD /* XMNPhotoPickerKitExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		972D3D681C59E9F800B057BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				972D3DAF1C5A1C3200B057BD /* XMNAssetCell.xib in Resources */,
+				972D3D7D1C59E9F800B057BD /* LaunchScreen.storyboard in Resources */,
+				972D3DAA1C5A161200B057BD /* XMNAlbumCell.xib in Resources */,
+				972D3D7A1C59E9F800B057BD /* Assets.xcassets in Resources */,
+				972D47281C5B1CB0005C2AB1 /* XMNBottomBar.xib in Resources */,
+				972D3D781C59E9F800B057BD /* Main.storyboard in Resources */,
+				972D47201C5B0915005C2AB1 /* PhotoPickerKit.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		972D3D951C5A067C00B057BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		972D3D661C59E9F800B057BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				972D471E1C5B068E005C2AB1 /* XMNPhotoCollectionController.m in Sources */,
+				972D3DA51C5A0FA700B057BD /* XMNPhotoPickerController.m in Sources */,
+				972D47311C5B6864005C2AB1 /* XMNVideoPreviewController.m in Sources */,
+				972D3D891C59EAAF00B057BD /* XMNPhotoManager.m in Sources */,
+				972D472B1C5B3F5D005C2AB1 /* XMNPhotoPreviewController.m in Sources */,
+				972D3D751C59E9F800B057BD /* ViewController.m in Sources */,
+				972D3D921C59EF3F00B057BD /* XMNAssetModel.m in Sources */,
+				972D3D8F1C59EC0100B057BD /* XMNAlbumModel.m in Sources */,
+				972D3DA81C5A160500B057BD /* XMNAlbumCell.m in Sources */,
+				972D3DAD1C5A1C2700B057BD /* XMNAssetCell.m in Sources */,
+				972D47261C5B1CA5005C2AB1 /* XMNBottomBar.m in Sources */,
+				972D47231C5B1B5D005C2AB1 /* UIView+Animations.m in Sources */,
+				972D3D721C59E9F800B057BD /* AppDelegate.m in Sources */,
+				972D3D6F1C59E9F800B057BD /* main.m in Sources */,
+				972D472E1C5B4A09005C2AB1 /* XMNPhotoPreviewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		972D3D931C5A067C00B057BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				972D3DA21C5A069700B057BD /* XMNPhotoManagerTest.m in Sources */,
+				972D3D9A1C5A067C00B057BD /* XMNPhotoPickerKitExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		972D3D9D1C5A067C00B057BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 972D3D691C59E9F800B057BD /* XMNPhotoPickerKitExample */;
+			targetProxy = 972D3D9C1C5A067C00B057BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		972D3D761C59E9F800B057BD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				972D3D771C59E9F800B057BD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		972D3D7B1C59E9F800B057BD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				972D3D7C1C59E9F800B057BD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		972D3D7F1C59E9F800B057BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		972D3D801C59E9F800B057BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		972D3D821C59E9F800B057BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = XMNPhotoPickerKitExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNPhotoPickerKitExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		972D3D831C59E9F800B057BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = XMNPhotoPickerKitExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNPhotoPickerKitExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		972D3D9F1C5A067C00B057BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = XMNPhotoPickerKitExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNPhotoPickerKitExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XMNPhotoPickerKitExample.app/XMNPhotoPickerKitExample";
+			};
+			name = Debug;
+		};
+		972D3DA01C5A067C00B057BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = XMNPhotoPickerKitExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.XMFraker.XMNPhotoPickerKitExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XMNPhotoPickerKitExample.app/XMNPhotoPickerKitExample";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		972D3D651C59E9F800B057BD /* Build configuration list for PBXProject "XMNPhotoPickerKitExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				972D3D7F1C59E9F800B057BD /* Debug */,
+				972D3D801C59E9F800B057BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		972D3D811C59E9F800B057BD /* Build configuration list for PBXNativeTarget "XMNPhotoPickerKitExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				972D3D821C59E9F800B057BD /* Debug */,
+				972D3D831C59E9F800B057BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		972D3D9E1C5A067C00B057BD /* Build configuration list for PBXNativeTarget "XMNPhotoPickerKitExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				972D3D9F1C5A067C00B057BD /* Debug */,
+				972D3DA01C5A067C00B057BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 972D3D621C59E9F800B057BD /* Project object */;
+}
