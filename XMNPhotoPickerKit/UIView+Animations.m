@@ -27,4 +27,17 @@
         }];
     }];
 }
+
++ (CABasicAnimation *)animationWithFromValue:(id)fromValue toValue:(id)toValue duration:(CGFloat)duration forKeypath:(NSString *)keypath {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keypath];
+    animation.fromValue = fromValue;
+    animation.toValue   = toValue;
+    animation.duration = duration;
+    animation.repeatCount = 0;
+    animation.autoreverses = NO;
+    //保证动画不会复原到初始位置
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    return animation;
+}
 @end

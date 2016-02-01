@@ -17,4 +17,6 @@ typedef NS_ENUM(NSUInteger, XMNAnimationType) {
 
 + (void)animationWithLayer:(CALayer *)layer type:(XMNAnimationType)type;
 
++ (CABasicAnimation *)animationWithFromValue:(id)fromValue toValue:(id)toValue duration:(CGFloat)duration forKeypath:(NSString *)keypath;
+
 @end
