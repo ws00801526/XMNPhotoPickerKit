@@ -41,13 +41,41 @@
 
 #pragma mark - Life Cycle
 
-- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id<XMNPhotoPickerControllerDelegate>)delegate;
+/**
+ *  初始化XMNPhotoPickerController
+ *
+ *  @param maxCount 最大选择数量 0则不限制
+ *  @param delegate 使用delegate 回调
+ *
+ *  @return XMNPhotoPickerController实例 或者 nil
+ */
+- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id<XMNPhotoPickerControllerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Methods
 
+/**
+ *  call photoPickerDelegate & didFinishPickingPhotosBlock
+ *  
+ *  @param assets 具体回传的资源
+ */
 - (void)didFinishPickingPhoto:(NSArray<XMNAssetModel *> *)assets;
+/**
+ *  call photoPickerDelegate  & didFinishPickingVideoBlock
+ *
+ *  @param asset 具体选择的视频资源
+ */
+- (void)didFinishPickingVideo:(XMNAssetModel *)asset;
+
+/**
+ *  call photoPickerDelegate & didCancelPickingPhotosBlock
+ */
 - (void)didCancelPickingPhoto;
 
+/**
+ *  显示一个alert提示框
+ *
+ *  @param title 具体提示的message
+ */
 - (void)showAlertWithTitle:(NSString *)title;
 
 @end

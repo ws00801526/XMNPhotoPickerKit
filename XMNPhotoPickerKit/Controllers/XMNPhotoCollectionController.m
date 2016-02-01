@@ -19,12 +19,16 @@
 
 @interface XMNPhotoCollectionController ()
 
-@property (nonatomic, assign) BOOL scrollBottom;
-
+/** 底部状态栏 */
 @property (nonatomic, weak)   XMNBottomBar *bottomBar;
 
-@property (nonatomic, copy)   NSArray *assets;
+/** 相册内所有的资源 */
+@property (nonatomic, copy)   NSArray<XMNAssetModel *> *assets;
+/** 选择的所有资源 */
 @property (nonatomic, strong) NSMutableArray *selectedAssets;
+
+/** 第一次进入时,自动滚动到底部 */
+@property (nonatomic, assign) BOOL autoScrollToBottom;
 
 @end
 
@@ -36,27 +40,42 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    
     
     self.navigationItem.title = self.album.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(_handleCancelAction)];
     
-
+    self.autoScrollToBottom = YES;
     self.selectedAssets = [NSMutableArray array];
-    self.scrollBottom = YES;
     
+    // 初始化collectionView的一些属性
     [self _setupCollectionView];
+    
+    //从相册中获取所有的资源model
     __weak typeof(*&self) wSelf = self;
     [[XMNPhotoManager sharedManager] getAssetsFromResult:self.album.fetchResult pickingVideoEnable:[(XMNPhotoPickerController *)self.navigationController pickingVideoEnable] completionBlock:^(NSArray<XMNAssetModel *> *assets) {
         __weak typeof(*&self) self = wSelf;
         self.assets = [NSArray arrayWithArray:assets];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            __weak typeof(*&self) self = wSelf;
+           [self.assets enumerateObjectsUsingBlock:^(XMNAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+               [obj thumbnail];
+           }];
+        });
         [self.collectionView reloadData];
-        if (self.scrollBottom) {
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
-            self.scrollBottom = !self.scrollBottom;
-        }
     }];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.autoScrollToBottom ?  [self.collectionView setContentOffset:CGPointMake(0, (self.assets.count / 4) * kXMNThumbnailWidth)] : nil;
+    self.autoScrollToBottom = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,6 +128,8 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
     XMNAssetCell *assetCell = [collectionView dequeueReusableCellWithReuseIdentifier:kXMNAssetCellIdentifier forIndexPath:indexPath];
     [assetCell configCellWithItem:self.assets[indexPath.row]];
     __weak typeof(*&self) wSelf = self;
+    
+    // 设置assetCell willChangeBlock
     [assetCell setWillChangeSelectedStateBlock:^BOOL(UIButton *button) {
         if (!button.selected) {
             __weak typeof(*&self) self = wSelf;
@@ -124,14 +145,16 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
         }
     }];
     
+    // 设置assetCell didChangeBlock
     [assetCell setDidChangeSelectedStateBlock:^(BOOL selected, XMNAssetModel *asset) {
         __weak typeof(*&self) self = wSelf;
         if (selected) {
             [self.selectedAssets containsObject:asset] ? nil : [self.selectedAssets addObject:asset];
+            asset.selected = YES;
         }else {
             [self.selectedAssets containsObject:asset] ? [self.selectedAssets removeObject:asset] : nil;
+            asset.selected = NO;
         }
-        asset.selected = YES;
         [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
     }];
     
@@ -144,6 +167,7 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
     XMNAssetModel *assetModel = self.assets[indexPath.row];
     if (assetModel.type == XMNAssetTypeVideo) {
         XMNVideoPreviewController *videoPreviewC = [[XMNVideoPreviewController alloc] init];
+        videoPreviewC.selectedVideoEnable = self.selectedAssets.count == 0;
         videoPreviewC.asset = assetModel;
         [self.navigationController pushViewController:videoPreviewC animated:YES];
     }else {
@@ -169,9 +193,8 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
 
 + (UICollectionViewLayout *)photoCollectionViewLayoutWithWidth:(CGFloat)width {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat margin = 4;
-    CGFloat itemWH = (width - 2 * margin - 4) / 4 - margin;
-    layout.itemSize = CGSizeMake(itemWH, itemWH);
+    CGFloat margin = kXMNMargin;
+    layout.itemSize = kXMNThumbnailSize;
     layout.minimumInteritemSpacing = margin;
     layout.minimumLineSpacing = margin;
     return layout;

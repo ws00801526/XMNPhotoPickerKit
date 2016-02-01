@@ -17,6 +17,8 @@
 #import "XMNAssetModel.h"
 #import "XMNPhotoManager.h"
 
+#import "UIView+Animations.h"
+
 @interface XMNVideoPreviewController ()
 
 @property (nonatomic, strong) AVPlayer *player;
@@ -37,6 +39,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.navigationItem.title = @"视频预览";
     [self _setupPlayer];
+    
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -50,6 +53,14 @@
 
 #pragma mark - Methods
 
+
+/**
+ *  初始化player
+ *  1.获取asset对应的AVPlayerItem
+ *  2.初始化AVPlayer
+ *  3.添加AVPlayerLayer
+ *  4.chu
+ */
 - (void)_setupPlayer {
     
     __weak typeof(*&self) wSelf = self;
@@ -86,6 +97,12 @@
 - (void)_setupBottomBar {
     XMNBottomBar *bottomBar = [[XMNBottomBar alloc] initWithBarType:XMNPreviewBottomBar];
     [bottomBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+    __weak typeof(*&self) wSelf = self;
+    self.selectedVideoEnable ? [bottomBar setConfirmBlock:^{
+        __weak typeof(*&self) self = wSelf;
+        [(XMNPhotoPickerController *)self.navigationController didFinishPickingVideo:self.asset];
+    }] : nil;
+    [bottomBar updateBottomBarWithAssets:self.selectedVideoEnable ? @[self.asset] : @[]];
     [self.view addSubview:self.bottomBar = bottomBar];
 }
 

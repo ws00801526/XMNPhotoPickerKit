@@ -18,6 +18,13 @@
 #define iOS8Later ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
 #define iOS9Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
 
-#define kXMNThumbnailSize CGSizeMake(80, 80)
+#define kXMNMargin 4
+#define kXMNThumbnailWidth ([UIScreen mainScreen].bounds.size.width - 2 * kXMNMargin - 4) / 4 - kXMNMargin
+#define kXMNThumbnailSize CGSizeMake(kXMNThumbnailWidth, kXMNThumbnailWidth)
+
+#define kXMNCamera 1
+#define kXMNPhotoLibrary 2
+#define kXMNCancel  999
+#define kXMNConfirm 998
 
 #endif /* XMNPhotoPickerDefines_h */

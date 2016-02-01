@@ -31,7 +31,7 @@ typedef enum : NSUInteger {
 /** 获取照片asset对应的原图 */
 @property (nonatomic, strong, readonly) UIImage * _Nullable originImage;
 /** 获取照片asset对应的缩略图, 默认缩略图大小 80x80 */
-@property (nonatomic, strong, readonly) UIImage * _Nullable thumbnail;
+@property (nonatomic, strong, readonly, getter=thumbnail) UIImage * _Nullable thumbnail;
 /** 获取照片asset的预览图,默认大小 [UIScreen mainScreen].bounds.size */
 @property (nonatomic, strong, readonly) UIImage * _Nullable previewImage;
 /** 获取照片的方向 */

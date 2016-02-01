@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		970444EB1C5F2E2000316072 /* XMNPhotoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970444EA1C5F2E2000316072 /* XMNPhotoPicker.m */; };
+		970444ED1C5F2E2A00316072 /* XMNPhotoPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970444EC1C5F2E2A00316072 /* XMNPhotoPicker.xib */; };
 		972D3D6F1C59E9F800B057BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D6E1C59E9F800B057BD /* main.m */; };
 		972D3D721C59E9F800B057BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D711C59E9F800B057BD /* AppDelegate.m */; };
 		972D3D751C59E9F800B057BD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D3D741C59E9F800B057BD /* ViewController.m */; };
@@ -44,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		970444E91C5F2E2000316072 /* XMNPhotoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNPhotoPicker.h; sourceTree = "<group>"; };
+		970444EA1C5F2E2000316072 /* XMNPhotoPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNPhotoPicker.m; sourceTree = "<group>"; };
+		970444EC1C5F2E2A00316072 /* XMNPhotoPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XMNPhotoPicker.xib; sourceTree = "<group>"; };
 		972D3D6A1C59E9F800B057BD /* XMNPhotoPickerKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMNPhotoPickerKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		972D3D6E1C59E9F800B057BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		972D3D701C59E9F800B057BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -208,6 +213,9 @@
 				972D47241C5B1CA5005C2AB1 /* XMNBottomBar.h */,
 				972D47251C5B1CA5005C2AB1 /* XMNBottomBar.m */,
 				972D47271C5B1CB0005C2AB1 /* XMNBottomBar.xib */,
+				970444E91C5F2E2000316072 /* XMNPhotoPicker.h */,
+				970444EA1C5F2E2000316072 /* XMNPhotoPicker.m */,
+				970444EC1C5F2E2A00316072 /* XMNPhotoPicker.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +317,7 @@
 				972D3D7A1C59E9F800B057BD /* Assets.xcassets in Resources */,
 				972D47281C5B1CB0005C2AB1 /* XMNBottomBar.xib in Resources */,
 				972D3D781C59E9F800B057BD /* Main.storyboard in Resources */,
+				970444ED1C5F2E2A00316072 /* XMNPhotoPicker.xib in Resources */,
 				972D47201C5B0915005C2AB1 /* PhotoPickerKit.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +342,7 @@
 				972D3D891C59EAAF00B057BD /* XMNPhotoManager.m in Sources */,
 				972D472B1C5B3F5D005C2AB1 /* XMNPhotoPreviewController.m in Sources */,
 				972D3D751C59E9F800B057BD /* ViewController.m in Sources */,
+				970444EB1C5F2E2000316072 /* XMNPhotoPicker.m in Sources */,
 				972D3D921C59EF3F00B057BD /* XMNAssetModel.m in Sources */,
 				972D3D8F1C59EC0100B057BD /* XMNAlbumModel.m in Sources */,
 				972D3DA81C5A160500B057BD /* XMNAlbumCell.m in Sources */,

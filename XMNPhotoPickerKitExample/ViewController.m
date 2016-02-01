@@ -34,4 +34,14 @@
     [self presentViewController:photoPickerC animated:YES completion:nil];
 }
 
+- (IBAction)presentPicker:(id)sender {
+    [[XMNPhotoPicker sharePhotoPicker] showPhotoPickerwithController:self animated:YES];
+    
+//    XMNPhotoPicker *picker = [[XMNPhotoPicker alloc] initWithMaxCount:0];
+//    [picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *images, NSArray<XMNAssetModel *> *assets) {
+//        NSLog(@"images :%@",images);
+//    }];
+//    [picker showPhotoPickerwithController:self animated:YES];
+}
+
 @end

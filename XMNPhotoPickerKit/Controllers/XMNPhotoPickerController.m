@@ -13,8 +13,6 @@
 
 #import "XMNAlbumCell.h"
 
-
-
 @implementation XMNPhotoPickerController
 
 #pragma clang diagnostic push
@@ -39,6 +37,11 @@
     [self _setupUnAuthorizedTips];
 }
 
+/**
+ *  重写viewWillAppear方法
+ *  判断是否需要自动push到第一个相册专辑内
+ *  @param animated 是否需要动画
+ */
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.autoPushToPhotoCollection) {
@@ -58,6 +61,11 @@
 
 #pragma mark - XMNPhotoPickerController Methods
 
+/**
+ *  call photoPickerDelegate & didFinishPickingPhotosBlock
+ *
+ *  @param assets 具体回传的资源
+ */
 - (void)didFinishPickingPhoto:(NSArray<XMNAssetModel *> *)assets {
     NSMutableArray *images = [NSMutableArray array];
     [assets enumerateObjectsUsingBlock:^(XMNAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -67,6 +75,15 @@
         [self.photoPickerDelegate photoPickerController:self didFinishPickingPhotos:images sourceAssets:assets];
     }
     self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images,assets) : nil;
+}
+
+- (void)didFinishPickingVideo:(XMNAssetModel *)asset {
+    
+    if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerController:didFinishPickingVideo:sourceAssets:)]) {
+        [self.photoPickerDelegate photoPickerController:self didFinishPickingVideo:asset.previewImage sourceAssets:asset];
+    }
+    
+    self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock(asset.previewImage , asset) : nil;
 }
 
 - (void)didCancelPickingPhoto {
@@ -111,6 +128,9 @@
     }
 }
 
+/**
+ *  处理当用户未授权访问相册时 tipsLabel的点击手势,暂时有bug
+ */
 - (void)_handleTipsTap {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
@@ -139,7 +159,6 @@
     } else {
         barItem = [UIBarButtonItem appearanceWhenContainedIn:[XMNPhotoPickerController class], nil];
         navigationBar = [UINavigationBar appearanceWhenContainedIn:[XMNPhotoPickerController class], nil];
-
     }
     [barItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
     [navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0f]}];

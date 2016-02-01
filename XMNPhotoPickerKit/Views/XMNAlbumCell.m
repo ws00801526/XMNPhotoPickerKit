@@ -28,7 +28,9 @@
     [nameString appendAttributedString:countString];
     self.titleLabel.attributedText = nameString;
     
-    [[XMNPhotoManager sharedManager] getThumbnailWithAsset:[item.fetchResult lastObject] size:CGSizeMake(70, 70) completionBlock:^(UIImage *image) {
+    __weak typeof(*&self) wSelf = self;
+    [[XMNPhotoManager sharedManager] getThumbnailWithAsset:[item.fetchResult lastObject] size:kXMNThumbnailSize completionBlock:^(UIImage *image) {
+        __weak typeof(*&self) self = wSelf;
         self.albumCoverImageView.image = image;
     }];
     

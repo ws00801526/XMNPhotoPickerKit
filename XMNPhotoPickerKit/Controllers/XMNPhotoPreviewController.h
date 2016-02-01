@@ -18,6 +18,7 @@
 
 /** 当用户更改了选择的图片,点击返回时,回调此block */
 @property (nonatomic, copy)   void(^didPreviewFinishBlock)( NSArray<XMNAssetModel *> *selectedAssets);
+
 /** 当前显示的asset index */
 @property (nonatomic, assign) NSUInteger currentIndex;
 

@@ -10,6 +10,9 @@
 #define XMNPhotoPickerKit_h
 
 #import "XMNPhotoManager.h"
+
+#import "XMNPhotoPicker.h"
+
 #import "XMNPhotoPickerController.h"
 
 #endif /* XMNPhotoPickerKit_h */

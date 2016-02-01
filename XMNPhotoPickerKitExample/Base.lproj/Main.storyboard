@@ -19,14 +19,26 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zw9-ea-kfc">
                                 <rect key="frame" x="299" y="237" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="present controller Button"/>
                                 <connections>
                                     <action selector="_handleButtonAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="s0n-3e-Ae7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGM-01-D1H">
+                                <rect key="frame" x="268" y="360" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="P89-ZK-NgK"/>
+                                </constraints>
+                                <state key="normal" title="present picker Button"/>
+                                <connections>
+                                    <action selector="presentPicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vol-NL-Mxi"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="cGM-01-D1H" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9e2-DI-9dQ"/>
+                            <constraint firstItem="cGM-01-D1H" firstAttribute="top" secondItem="Zw9-ea-kfc" secondAttribute="bottom" constant="40" id="Cbi-B0-TVY"/>
                             <constraint firstItem="Zw9-ea-kfc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U30-yq-T1A"/>
                             <constraint firstItem="Zw9-ea-kfc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="cIn-ek-3hR"/>
                         </constraints>
