@@ -17,5 +17,8 @@
 /** 资源model */
 @property (nonatomic, strong) XMNAssetModel *asset;
 
+/** 点击底部bottomBar 确认按钮后回调 */
+@property (nonatomic, copy)   void(^didFinishPickingVideo)(UIImage *coverImage, XMNAssetModel *asset);
+
 
 @end

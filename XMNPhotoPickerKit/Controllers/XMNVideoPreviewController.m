@@ -25,6 +25,7 @@
 
 @property (nonatomic, weak)   UIButton *playButton;
 @property (nonatomic, weak)   XMNBottomBar *bottomBar;
+@property (nonatomic, strong) UIView *topBar;
 
 @property (nonatomic, strong) UIImage *coverImage;
 
@@ -49,6 +50,16 @@
 - (void)dealloc {
     NSLog(@"video preview dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController ? [self.navigationController setNavigationBarHidden:YES] : nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController ? [self.navigationController setNavigationBarHidden:NO] : nil;
 }
 
 #pragma mark - Methods
@@ -79,6 +90,7 @@
             [self.view.layer addSublayer:playerLayer];
             [self _setupPlayButton];
             [self _setupBottomBar];
+            [self.view addSubview:self.topBar];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_pausePlayer) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
         });
     }];
@@ -100,7 +112,7 @@
     __weak typeof(*&self) wSelf = self;
     self.selectedVideoEnable ? [bottomBar setConfirmBlock:^{
         __weak typeof(*&self) self = wSelf;
-        [(XMNPhotoPickerController *)self.navigationController didFinishPickingVideo:self.asset];
+        self.didFinishPickingVideo ? self.didFinishPickingVideo(self.asset.previewImage , self.asset) : nil;
     }] : nil;
     [bottomBar updateBottomBarWithAssets:self.selectedVideoEnable ? @[self.asset] : @[]];
     [self.view addSubview:self.bottomBar = bottomBar];
@@ -116,6 +128,7 @@
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         [UIView animateWithDuration:.2 animations:^{
             [self.bottomBar setFrame:CGRectMake(0, self.view.frame.size.height, self.bottomBar.frame.size.width, self.bottomBar.frame.size.height)];
+            [self.topBar setFrame:CGRectMake(0, -self.topBar.frame.size.height, self.topBar.frame.size.width, self.topBar.frame.size.height)];
         }];
     } else {
         [self _pausePlayer];
@@ -128,6 +141,40 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIView animateWithDuration:.2 animations:^{
         [self.bottomBar setFrame:CGRectMake(0, self.view.frame.size.height-self.bottomBar.frame.size.height, self.bottomBar.frame.size.width, self.bottomBar.frame.size.height)];
+        [self.topBar setFrame:CGRectMake(0, 0, self.topBar.frame.size.width, self.topBar.frame.size.height)];
     }];
 }
+
+- (void)_handleBackAction {
+    self.navigationController ? [self.navigationController popViewControllerAnimated:YES] : [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Getters
+
+- (UIView *)topBar {
+    if (!_topBar) {
+        
+        CGFloat originY = iOS7Later ? 20 : 0;
+        _topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, originY + 44)];
+        _topBar.backgroundColor = [UIColor colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:.7f];
+        
+        UILabel *label = [[UILabel alloc] init];
+        [label setAttributedText:[[NSAttributedString alloc] initWithString:@"视频预览" attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0f],NSForegroundColorAttributeName:[UIColor whiteColor]}]];
+        [label sizeToFit];
+        label.center = _topBar.center;
+        [_topBar addSubview:label];
+        
+        UIButton *backButton  = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backButton setImage:[UIImage imageNamed:@"navigation_back"] forState:UIControlStateNormal];
+        [backButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+        [backButton sizeToFit];
+        backButton.frame = CGRectMake(12, _topBar.frame.size.height/2 - backButton.frame.size.height/2 + originY/2, backButton.frame.size.width, backButton.frame.size.height);
+        [backButton addTarget:self action:@selector(_handleBackAction) forControlEvents:UIControlEventTouchUpInside];
+        [_topBar addSubview:backButton];
+        
+    }
+    return _topBar;
+}
+
+
 @end
