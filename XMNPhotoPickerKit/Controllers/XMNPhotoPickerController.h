@@ -30,13 +30,14 @@
 /** delegate 回调 */
 @property (nonatomic, weak)   id<XMNPhotoPickerControllerDelegate> photoPickerDelegate;
 
-/** 用户选择完照片的回调 images<previewImage>  assets<PHAsset or ALAsset>*/
+/** 用户选择完照片的回调 images<previewImage>  assets<XMNAssetModel>*/
 @property (nonatomic, copy)   void(^didFinishPickingPhotosBlock)(NSArray<UIImage *>* images, NSArray<XMNAssetModel *>*assets);
 
 /** 用户选择完视频的回调 coverImage:视频的封面,asset 视频资源地址 */
-@property (nonatomic, copy)   void(^didFinishPickingVideoBlock)(UIImage *coverImage, id asset);
+@property (nonatomic, copy)   void(^didFinishPickingVideoBlock)(UIImage *coverImage, XMNAssetModel *asset);
+
 /** 用户点击取消的block 回调 */
-@property (nonatomic, copy)   void(^didCancelPickingPhotosBlock)();
+@property (nonatomic, copy)   void(^didCancelPickingBlock)();
 
 
 #pragma mark - Life Cycle
@@ -71,12 +72,6 @@
  */
 - (void)didCancelPickingPhoto;
 
-/**
- *  显示一个alert提示框
- *
- *  @param title 具体提示的message
- */
-- (void)showAlertWithTitle:(NSString *)title;
 
 @end
 
@@ -92,7 +87,7 @@
  *  @param photos 选择的照片 -- 预览图
  *  @param assets 选择的原图数组  NSArray<PHAsset *>  or NSArray<ALAsset *> or nil
  */
-- (void)photoPickerController:(XMNPhotoPickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets;
+- (void)photoPickerController:(XMNPhotoPickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray<XMNAssetModel *> *)assets;
 
 /**
  *  photoPickerController 点击取消后回调
@@ -106,9 +101,9 @@
  *
  *  @param picker     具体的photoPickerController
  *  @param coverImage 视频的预览图
- *  @param asset      视频的具体资源 PHAsset or ALAsset
+ *  @param asset      视频的具体资源
  */
-- (void)photoPickerController:(XMNPhotoPickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset;
+- (void)photoPickerController:(XMNPhotoPickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(XMNAssetModel *)asset;
 
 @end
 

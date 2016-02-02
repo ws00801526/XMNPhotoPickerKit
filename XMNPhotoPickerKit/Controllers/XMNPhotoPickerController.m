@@ -90,19 +90,7 @@
     if (self.photoPickerDelegate && [self.photoPickerDelegate respondsToSelector:@selector(photoPickerControllerDidCancel:)]) {
         [self.photoPickerDelegate photoPickerControllerDidCancel:self];
     }
-    self.didCancelPickingPhotosBlock ? self.didCancelPickingPhotosBlock() : nil;
-}
-
-- (void)showAlertWithTitle:(NSString *)title {
-    if (iOS8Later) {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-        [alertC addAction:action];
-        [self showDetailViewController:alertC sender:self];
-    }else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:title delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
-    }
+    self.didCancelPickingBlock ? self.didCancelPickingBlock() : nil;
 }
 
 /**
