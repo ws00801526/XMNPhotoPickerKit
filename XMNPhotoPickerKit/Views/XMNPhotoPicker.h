@@ -20,13 +20,13 @@
 @property (nonatomic, assign) BOOL pickingVideoEnable;
 
 /** parentController,用来显示其他controller */
-@property (nonatomic, weak)   UIViewController * _Nullable parentController;
+@property (nonatomic, weak, nullable)   UIViewController *parentController;
 
 /** 用户选择完照片的回调 images<previewImage>  assets<PHAsset or ALAsset>*/
-@property (nonatomic, copy)   void(^ _Nullable didFinishPickingPhotosBlock)(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *>* _Nullable assets);
+@property (nonatomic, copy, nullable)   void(^didFinishPickingPhotosBlock)(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *>* _Nullable assets);
 
 /** 用户选择完视频的回调 coverImage:视频的封面,asset 视频资源地址 */
-@property (nonatomic, copy)   void(^ _Nullable didFinishPickingVideoBlock)(UIImage * _Nullable coverImage, XMNAssetModel * _Nullable asset);
+@property (nonatomic, copy, nullable)   void(^didFinishPickingVideoBlock)(UIImage * _Nullable coverImage, XMNAssetModel * _Nullable asset);
 
 + (instancetype _Nonnull )sharePhotoPicker;
 - (instancetype _Nullable )initWithMaxCount:(NSUInteger)maxCount;

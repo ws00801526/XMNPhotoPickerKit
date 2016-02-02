@@ -31,7 +31,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
-@property (nonatomic, strong) NSArray <XMNAssetModel *>* assets;
+@property (nonatomic, strong) XMNAlbumModel *displayAlbum;
+@property (nonatomic, copy) NSArray <XMNAssetModel *>* assets;
 @property (nonatomic, strong) NSMutableArray <XMNAssetModel *> *selectedAssets;
 
 @property (nonatomic, assign, readonly) CGFloat contentViewHeight;
@@ -110,7 +111,7 @@
     [cancelButton addTarget:self action:@selector(_handleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:cancelButton];
     
-    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    iOS8Later ? [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self] : nil;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         self.cameraButtonHConstarint.constant = 40;
@@ -132,6 +133,7 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
     
     self.selectedAssets = [NSMutableArray array];
     
@@ -145,6 +147,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[XMNPhotoManager sharedManager] getAlbumsPickingVideoEnable:YES completionBlock:^(NSArray<XMNAlbumModel *> *albums) {
             if (albums && [albums firstObject]) {
+                self.displayAlbum = [albums firstObject];
                 [[XMNPhotoManager sharedManager] getAssetsFromResult:[[albums firstObject] fetchResult] pickingVideoEnable:YES completionBlock:^(NSArray<XMNAssetModel *> *assets) {
                     __weak typeof(*&self) self = wSelf;
                     NSMutableArray *tempAssets = [NSMutableArray array];
@@ -153,7 +156,7 @@
                         [tempAssets addObject:obj];
                         *stop = ( tempAssets.count > self.maxPreviewCount);
                     }];
-                    self.assets = [NSMutableArray arrayWithArray:tempAssets];
+                    self.assets = [NSArray arrayWithArray:tempAssets];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         __weak typeof(*&self) self = wSelf;
                         self.loadingView.hidden = YES;
@@ -380,10 +383,48 @@
 #pragma mark - PHPhotoLibraryChangeObserver
 
 
-- (void)photoLibraryDidChange:(PHChange *)changeInstance {
-    [self _loadAssets];
+- (void)photoLibraryDidChange:(PHChange *)changeInfo {
+    __weak typeof(*&self) wSelf = self;
+    // Photos may call this method on a background queue;
+    // switch to the main queue to update the UI.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Check for changes to the list of assets (insertions, deletions, moves, or updates).
+        PHFetchResultChangeDetails *collectionChanges = [changeInfo changeDetailsForFetchResult:self.displayAlbum.fetchResult];
+        if (collectionChanges) {
+            // Get the new fetch result for future change tracking.
+            XMNAlbumModel *changeAlbumModel = [XMNAlbumModel albumWithResult:collectionChanges.fetchResultAfterChanges name:@"afterChange"];
+            self.displayAlbum = changeAlbumModel;
+            if (collectionChanges.hasIncrementalChanges)  {
+                [[XMNPhotoManager sharedManager] getAssetsFromResult:self.displayAlbum.fetchResult pickingVideoEnable:YES completionBlock:^(NSArray<XMNAssetModel *> *assets) {
+                    __weak typeof(*&self) self = wSelf;
+                    NSMutableArray *tempAssets = [NSMutableArray array];
+                    [assets enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(XMNAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        __weak typeof(*&self) self = wSelf;
+                        [tempAssets addObject:obj];
+                        *stop = ( tempAssets.count > self.maxPreviewCount);
+                    }];
+                    self.assets = [NSArray arrayWithArray:tempAssets];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        __weak typeof(*&self) self = wSelf;
+                        [self.collectionView reloadData];
+                    });
+                }];
+            } else {
+                // Detailed change information is not available;
+                // repopulate the UI from the current fetch result.
+                [self.collectionView reloadData];
+            }
+        }
+    });
 }
 
+- (NSArray <NSIndexPath *> *)_indexPathsFromIndexSet:(NSIndexSet *)indexSet {
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        [indexPaths addObject:[NSIndexPath indexPathForItem:self.displayAlbum.count - idx inSection:0]];
+    }];
+    return indexPaths;
+}
 #pragma mark - Getters
 
 - (CGFloat)contentViewHeight {

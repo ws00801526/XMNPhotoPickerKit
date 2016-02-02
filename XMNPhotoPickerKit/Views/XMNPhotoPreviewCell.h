@@ -11,7 +11,7 @@
 @class XMNAssetModel;
 @interface XMNPhotoPreviewCell : UICollectionViewCell
 
-@property (nonatomic, copy)   void(^_Nullable singleTapBlock)();
+@property (nonatomic, copy, nullable)   void(^singleTapBlock)();
 
 
 - (void)configCellWithItem:(XMNAssetModel * _Nonnull )item;

@@ -31,6 +31,15 @@
     [photoPickerC setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *images, NSArray<XMNAssetModel *> *assets) {
         
     }];
+    
+    [photoPickerC setDidFinishPickingVideoBlock:^(UIImage *coverImage, XMNAssetModel * asset) {
+        NSLog(@"picker image :%@\n\n asset:%@\n\n",coverImage,asset);
+    }];
+    
+    [photoPickerC setDidCancelPickingBlock:^{
+        NSLog(@"photoPickerC did Cancel");
+    }];
+    
     [self presentViewController:photoPickerC animated:YES completion:nil];
 }
 
@@ -45,12 +54,6 @@
     }];
     
     [[XMNPhotoPicker sharePhotoPicker] showPhotoPickerwithController:self animated:YES];
-    
-//    XMNPhotoPicker *picker = [[XMNPhotoPicker alloc] initWithMaxCount:0];
-//    [picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *images, NSArray<XMNAssetModel *> *assets) {
-//        NSLog(@"images :%@",images);
-//    }];
-//    [picker showPhotoPickerwithController:self animated:YES];
 }
 
 @end

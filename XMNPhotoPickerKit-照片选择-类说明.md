@@ -53,8 +53,50 @@
 | imageOrientationWithAsset:WithCompletion: | getter方法  |获取对应asset的图片方向 | 
 
 ###1.2 照片选择ViewController
-####1.2.1 XMNPhotoPickerController :继承UINavigationController的 
-#####1.2.2 XMNAlbumListController :继承UITableViewController 显示
-###1.3 照片预览XMNPhotoPreviewController 继承UICollectionController
+####1.2.1 XMNPhotoPickerController
 
-###1.4 视频预览XMNVideoPreviewController
+* 继承`UINavigationController`
+* 默认rootController是`XMNAlbumListController`
+* 除了`didCancelPickingBlock` 会自动dismiss `XMNPhotoPickerController`,**其他回调方式均不会自动dismiss,需要手动dismiss**
+
+| 属性        |  属性说明     |  作用           |
+| ------------- | --- |:-------------:| 
+| pickingVideoEnable   |    | 是否允许选择视频 | 
+| autoPushToPhotoCollection     |   | 是否自动push到photoCollectionController界面   | 
+| maxCount |   | 最大选择数量 ,默认视频一次只能选择一个,默认选择9个| 
+| photoPickerDelegate |  | delegate 回调 方式|
+| didFinishPickingPhotosBlock   |   | 确定选择图片的block回调方式 | 
+| didFinishPickingVideoBlock     |   | 确定选择视频的block回调方式  | 
+| didCancelPickingBlock |  readonly  | 确定取消选择的回调方式 | 
+
+
+| 	方法        |  方法说明          | 作用 | 
+| ------------- |:-------------:| --- | 
+| `- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id<XMNPhotoPickerControllerDelegate>)delegate NS_DESIGNATED_INITIALIZER;`| 初始化方法 | 初始化XMNPhotoPickerController |
+| `- (void)didFinishPickingPhoto:(NSArray<XMNAssetModel *> *)assets;`      | public方法  | 提供给viewControllers 回调,会调用自身delegate以及block 的对应回调 | 
+| `- (void)didFinishPickingVideo:(XMNAssetModel *)asset;`     | public方法   | 提供给viewControllers 唤起对应delegate,block 回调 |
+| `- (void)didCancelPickingPhoto` |  public方法 | 提供给viewControllers 唤起对应delegate,block回调 |  
+
+#####1.2.2 XMNAlbumListController
+
+* 继承UITableViewController
+* 使用tableView 展示album相册列表
+* 点击后跳转到XMNPhotoCollectionController界面
+
+###1.3 XMNPhotoPicker - 模仿QQ选择照片的Sheet,使用block回调
+
+* 推荐使用单例`sharePhotoPicker`
+* 支持手势滑动发送图片
+* 支持预览图片 - `XMNPhotoPreviewController` 视频-`XMNVideoPreviewController`
+* 支持使用系统相机拍照发送图片
+* iOS8+支持动态监测系统图片变化
+
+###1.4 照片预览XMNPhotoPreviewController 继承UICollectionController
+
+* 继承UICollectionViewController
+* 实现block 回调
+
+###1.5 视频预览XMNVideoPreviewController
+
+* 继承UIViewController
+* 实现block回调
