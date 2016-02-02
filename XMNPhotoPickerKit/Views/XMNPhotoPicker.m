@@ -17,6 +17,7 @@
 #import "XMNPhotoPickerDefines.h"
 
 #import "UIView+Animations.h"
+#import "UIViewController+XMNPhotoHUD.h"
 
 @interface XMNPhotoPicker   () <UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PHPhotoLibraryChangeObserver>
 
@@ -29,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *photoLibraryButton;
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-
 
 @property (nonatomic, strong) NSArray <XMNAssetModel *>* assets;
 @property (nonatomic, strong) NSMutableArray <XMNAssetModel *> *selectedAssets;
@@ -88,9 +88,13 @@
 }
 
 - (void)showPhotoPickerwithController:(UIViewController *)controller animated:(BOOL)animated {
+    [self.selectedAssets removeAllObjects];
+    [self.assets makeObjectsPerformSelector:@selector(setSelected:) withObject:@(NO)];
+    [self.collectionView setContentOffset:CGPointZero];
+    [self.collectionView reloadData];
     self.hidden = NO;
     self.parentController = controller;
-    [self _loadAssets];
+    self.assets ? nil : [self _loadAssets];
     [self showAnimated:animated];
 }
 
@@ -99,8 +103,11 @@
     self.maxPreviewCount = 20;
     self.maxCount = MIN(self.maxPreviewCount, NSUIntegerMax);
     
-    UITapGestureRecognizer *hideTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleButtonAction:)];
-    [self addGestureRecognizer:hideTap];
+    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - self.contentViewHeight);
+    cancelButton.tag = kXMNCancel;
+    [cancelButton addTarget:self action:@selector(_handleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:cancelButton];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     
@@ -127,14 +134,13 @@
     
     self.selectedAssets = [NSMutableArray array];
     
+    self.assets ? nil : [self _loadAssets];
 }
 
 - (void)_loadAssets {
     
     __weak typeof(*&self) wSelf = self;
     self.loadingView.hidden = NO;
-    [self.selectedAssets removeAllObjects];
-    [self.collectionView setContentOffset:CGPointZero];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[XMNPhotoManager sharedManager] getAlbumsPickingVideoEnable:YES completionBlock:^(NSArray<XMNAlbumModel *> *albums) {
             if (albums && [albums firstObject]) {
@@ -160,25 +166,22 @@
 }
 
 - (IBAction)_handleButtonAction:(UIButton *)sender {
-    if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
-        UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
-        if (!CGRectContainsPoint(self.contentView.frame, [tap locationInView:self])) {
-            [self hideAnimated:YES];
-        }
-        return;
-    }
     switch (sender.tag) {
         case kXMNCancel:
             [self hideAnimated:YES];
             break;
         case kXMNConfirm:
         {
-//            NSMutableArray *images = [NSMutableArray array];
-//            [self.selectedAssets enumerateObjectsUsingBlock:^(XMNAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                [images addObject:obj.previewImage];
-//            }];
-//            self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images,self.selectedAssets) : nil;
-//            [self hideAnimated:YES];
+            if (self.selectedAssets.count == 1 && [self.selectedAssets firstObject].type == XMNAssetTypeVideo) {
+                self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock([self.selectedAssets firstObject].previewImage,[self.selectedAssets firstObject]) : nil;
+            }else {
+                NSMutableArray *images = [NSMutableArray array];
+                [self.selectedAssets enumerateObjectsUsingBlock:^(XMNAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [images addObject:obj.previewImage];
+                }];
+                self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images,self.selectedAssets) : nil;
+            }
+            [self hideAnimated:YES];
         }
             
             break;
@@ -254,15 +257,23 @@
     
     __weak typeof(*&self) wSelf = self;
     // 设置assetCell willChangeBlock
-    [assetCell setWillChangeSelectedStateBlock:^BOOL(UIButton *button) {
-        if (!button.selected) {
+    [assetCell setWillChangeSelectedStateBlock:^BOOL(XMNAssetModel *asset) {
+        if (!asset.selected) {
             __weak typeof(*&self) self = wSelf;
-//            if (<#condition#>) {
-//                <#statements#>
-//            }else{
-//
-//            }
-            return self.selectedAssets.count < self.maxCount;
+            if (asset.type == XMNAssetTypeVideo) {
+                if ([self.selectedAssets firstObject] && [self.selectedAssets firstObject].type != XMNAssetTypeVideo) {
+                    NSLog(@"不能同时选择照片和视频");
+                    [self.parentController showAlertWithMessage:@"不能同时选择照片和视频"];
+                }else {
+                    NSLog(@"一次只能发送1个视频");
+                    [self.parentController showAlertWithMessage:@"一次只能发送1个视频"];
+                }
+                return NO;
+            }else if (self.selectedAssets.count > self.maxCount){
+                [self.parentController showAlertWithMessage:[NSString stringWithFormat:@"一次最多只能选择%d张图片",(int)self.maxCount]];
+                return NO;
+            }
+            return YES;
         }else {
             return NO;
         }
@@ -281,13 +292,12 @@
         [self _updateCancelButton];
     }];
     
-    [assetCell setDidSendAsset:^(XMNAssetModel *asset) {
+    [assetCell setDidSendAsset:^(XMNAssetModel *asset, CGRect frame) {
         if (asset.type == XMNAssetTypePhoto) {
             self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(@[asset.previewImage],@[asset]) : nil;
         }else {
             self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock(asset.previewImage , asset) : nil;
         }
-        [self hideAnimated:YES];
     }];
     
     return assetCell;
@@ -307,20 +317,30 @@
         XMNVideoPreviewController *videoPreviewC = [[XMNVideoPreviewController alloc] init];
         videoPreviewC.selectedVideoEnable = self.selectedAssets.count == 0;
         videoPreviewC.asset = assetModel;
-//        [self.navigationController pushViewController:videoPreviewC animated:YES];
+        [self.parentController presentViewController:videoPreviewC animated:YES completion:nil];
     }else {
         XMNPhotoPreviewController *previewC = [[XMNPhotoPreviewController alloc] initWithCollectionViewLayout:[XMNPhotoPreviewController photoPreviewViewLayoutWithSize:[UIScreen mainScreen].bounds.size]];
         previewC.assets = self.assets;
+        previewC.maxCount = self.maxCount;
         previewC.selectedAssets = [NSMutableArray arrayWithArray:self.selectedAssets];
         previewC.currentIndex = indexPath.row;
         __weak typeof(*&self) wSelf = self;
-        [previewC setDidPreviewFinishBlock:^(NSArray<XMNAssetModel *> *selectedAssets) {
+        [previewC setDidFinishPreviewBlock:^(NSArray<XMNAssetModel *> *selectedAssets) {
             __weak typeof(*&self) self = wSelf;
             self.selectedAssets = [NSMutableArray arrayWithArray:selectedAssets];
-//            [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
             [self.collectionView reloadData];
+            [self.parentController dismissViewControllerAnimated:YES completion:nil];
         }];
-//        [self.navigationController pushViewController:previewC animated:YES];
+        
+        [previewC setDidFinishPickingBlock:^(NSArray<UIImage *> *images, NSArray<XMNAssetModel *> *assets) {
+            __weak typeof(*&self) self = wSelf;
+            [self.selectedAssets removeAllObjects];
+            self.didFinishPickingPhotosBlock ? self.didFinishPickingPhotosBlock(images,assets) : nil;
+            [self hideAnimated:NO];
+            [self.parentController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [self.parentController presentViewController:previewC animated:YES completion:nil];
     }
     
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];

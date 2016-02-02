@@ -45,12 +45,11 @@
 
 #pragma mark - Methods
 
-
 - (void)updateBottomBarWithAssets:(NSArray *)assets {
     
     _totalSize = .0f;
     
-    if (assets.count == 0) {
+    if (!assets || assets.count == 0) {
         self.originStateImageView.highlighted = NO;
         self.originSizeLabel.textColor = [UIColor lightGrayColor];
         self.originSizeLabel.text = @"原图";

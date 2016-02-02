@@ -35,6 +35,15 @@
 }
 
 - (IBAction)presentPicker:(id)sender {
+    
+    [[XMNPhotoPicker sharePhotoPicker] setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> *images, NSArray<XMNAssetModel *> *assets) {
+        NSLog(@"picker images :%@ \n\n assets:%@",images,assets);
+    }];
+    
+    [[XMNPhotoPicker sharePhotoPicker] setDidFinishPickingVideoBlock:^(UIImage * image, XMNAssetModel *asset) {
+        NSLog(@"picker video :%@ \n\n asset :%@",image,asset);
+    }];
+    
     [[XMNPhotoPicker sharePhotoPicker] showPhotoPickerwithController:self animated:YES];
     
 //    XMNPhotoPicker *picker = [[XMNPhotoPicker alloc] initWithMaxCount:0];
