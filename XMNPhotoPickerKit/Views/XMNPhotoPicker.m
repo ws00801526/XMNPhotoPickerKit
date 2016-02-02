@@ -90,6 +90,7 @@
 - (void)showPhotoPickerwithController:(UIViewController *)controller animated:(BOOL)animated {
     [self.selectedAssets removeAllObjects];
     [self.assets makeObjectsPerformSelector:@selector(setSelected:) withObject:@(NO)];
+    [self _updateCancelButton];
     [self.collectionView setContentOffset:CGPointZero];
     [self.collectionView reloadData];
     self.hidden = NO;
@@ -262,11 +263,11 @@
             __weak typeof(*&self) self = wSelf;
             if (asset.type == XMNAssetTypeVideo) {
                 if ([self.selectedAssets firstObject] && [self.selectedAssets firstObject].type != XMNAssetTypeVideo) {
-                    NSLog(@"不能同时选择照片和视频");
                     [self.parentController showAlertWithMessage:@"不能同时选择照片和视频"];
-                }else {
-                    NSLog(@"一次只能发送1个视频");
+                }else if ([self.selectedAssets firstObject]){
                     [self.parentController showAlertWithMessage:@"一次只能发送1个视频"];
+                }else {
+                    return YES;
                 }
                 return NO;
             }else if (self.selectedAssets.count > self.maxCount){
@@ -317,6 +318,13 @@
         XMNVideoPreviewController *videoPreviewC = [[XMNVideoPreviewController alloc] init];
         videoPreviewC.selectedVideoEnable = self.selectedAssets.count == 0;
         videoPreviewC.asset = assetModel;
+        __weak typeof(*&self) wSelf = self;
+        [videoPreviewC setDidFinishPickingVideo:^(UIImage *coverImage, XMNAssetModel *asset) {
+            __weak typeof(*&self) self = wSelf;
+            self.didFinishPickingVideoBlock ? self.didFinishPickingVideoBlock(coverImage,asset) : nil;
+            [self hideAnimated:NO];
+            [self.parentController dismissViewControllerAnimated:YES completion:nil];
+        }];
         [self.parentController presentViewController:videoPreviewC animated:YES completion:nil];
     }else {
         XMNPhotoPreviewController *previewC = [[XMNPhotoPreviewController alloc] initWithCollectionViewLayout:[XMNPhotoPreviewController photoPreviewViewLayoutWithSize:[UIScreen mainScreen].bounds.size]];
