@@ -44,7 +44,14 @@
 /// @name   获取Album相册相关方法
 /// ========================================
 
-- (void)getAlbumsPickingVideoEnable:(BOOL)pickingVideoEnable completionBlock:(void(^)(NSArray<XMNAlbumModel *> *))completionBlock {
+/**
+ *  获取所有的相册
+ *
+ *  @param pickingVideoEnable 是否允许选择视频
+ *  @param completionBlock    回调block
+ */
+- (void)getAlbumsPickingVideoEnable:(BOOL)pickingVideoEnable
+                    completionBlock:(void(^_Nonnull)(NSArray<XMNAlbumModel *> * _Nullable albums))completionBlock {
     NSMutableArray *albumArr = [NSMutableArray array];
     if (iOS8Later) {
         PHFetchOptions *option = [[PHFetchOptions alloc] init];
@@ -99,7 +106,16 @@
 }
 
 
-- (void)getAssetsFromResult:(id)result pickingVideoEnable:(BOOL)pickingVideoEnable completionBlock:(void(^)(NSArray<XMNAssetModel *> *))completionBlock {
+/**
+ *  获取相册中的所有图片,视频
+ *
+ *  @param result             对应相册  PHFetchResult or ALAssetsGroup<ALAsset>
+ *  @param pickingVideoEnable 是否允许选择视频
+ *  @param completionBlock    回调block
+ */
+- (void)getAssetsFromResult:(id _Nonnull)result
+         pickingVideoEnable:(BOOL)pickingVideoEnable
+            completionBlock:(void(^_Nonnull)(NSArray<XMNAssetModel *> * _Nullable assets))completionBlock {
     NSMutableArray *photoArr = [NSMutableArray array];
     if ([result isKindOfClass:[PHFetchResult class]]) {
         for (PHAsset *asset in result) {
@@ -163,7 +179,16 @@
 /// ========================================
 /// @name   获取Asset对应信息相关方法
 /// ========================================
-- (void)getOriginImageWithAsset:(id)asset completionBlock:(void (^)(UIImage *))completionBlock {
+
+
+/**
+ *  根据提供的asset 获取原图图片
+ *  使用异步获取asset的原图图片
+ *  @param asset           具体资源 <PHAsset or ALAsset>
+ *  @param completionBlock 回到block
+ */
+- (void)getOriginImageWithAsset:(id _Nonnull)asset
+                completionBlock:(void(^_Nonnull)(UIImage * _Nullable image))completionBlock {
     
     __block UIImage *resultImage;
     if (iOS8Later) {
@@ -203,7 +228,16 @@
 }
 
 
-- (void)getThumbnailWithAsset:(id)asset size:(CGSize)size completionBlock:(void(^)(UIImage *image))completionBlock {
+/**
+ *  根据提供的asset获取缩略图
+ *  使用同步方法获取
+ *  @param asset           具体的asset资源 PHAsset or ALAsset
+ *  @param size            缩略图大小
+ *  @param completionBlock 回调block
+ */
+- (void)getThumbnailWithAsset:(id _Nonnull)asset
+                         size:(CGSize)size
+              completionBlock:(void(^_Nonnull)(UIImage *_Nullable image))completionBlock {
     if (iOS8Later) {
         PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
         imageRequestOptions.synchronous = YES;
@@ -221,11 +255,25 @@
     }
 }
 
-- (void)getPreviewImageWithAsset:(id)asset completionBlock:(void(^)(UIImage *image))completionBlock {
+/**
+ *  根据asset 获取屏幕预览图
+ *
+ *  @param asset           提供的asset资源 PHAsset or ALAsset
+ *  @param completionBlock 回调block
+ */
+- (void)getPreviewImageWithAsset:(id _Nonnull)asset
+                 completionBlock:(void(^_Nonnull)(UIImage * _Nullable image))completionBlock {
     [self getThumbnailWithAsset:asset size:[UIScreen mainScreen].bounds.size completionBlock:completionBlock];
 }
 
-- (void)getImageOrientationWithAsset:(id)asset completionBlock:(void (^)(UIImageOrientation))completionBlock {
+/**
+ *  根据asset 获取图片的方向
+ *
+ *  @param asset           PHAsset or ALAsset
+ *  @param completionBlock 回调block
+ */
+- (void)getImageOrientationWithAsset:(id _Nonnull)asset
+                     completionBlock:(void(^_Nonnull)(UIImageOrientation imageOrientation))completionBlock {
     if (iOS8Later) {
         PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
         imageRequestOptions.synchronous = YES;
@@ -248,9 +296,15 @@
     }
 }
 
-- (void)getVideoInfoWithAsset:(id)asset completionBlock:(void (^)(AVPlayerItem *, NSDictionary *))completionBlock {
+/**
+ *  根据asset获取Video信息
+ *
+ *  @param asset           PHAsset or ALAsset
+ *  @param completionBlock 回调block
+ */
+- (void)getVideoInfoWithAsset:(id _Nonnull)asset
+              completionBlock:(void(^ _Nonnull)(AVPlayerItem * _Nullable playerItem,NSDictionary * _Nullable playetItemInfo))completionBlock {
     if ([asset isKindOfClass:[PHAsset class]]) {
-        
         [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
             completionBlock ? completionBlock(playerItem,info) : nil;
         }];

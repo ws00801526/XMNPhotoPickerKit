@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class XMNAlbumModel;
 @interface XMNAlbumCell : UITableViewCell
 
 
-- (void)configCellWithItem:(id)item;
+- (void)configCellWithItem:(XMNAlbumModel * _Nonnull)item;
 
 @end

@@ -35,7 +35,16 @@
 
 #pragma mark - Methods
 
-- (void)configCellWithItem:(XMNAssetModel *)item {
+/// ========================================
+/// @name   Public Methods
+/// ========================================
+
+/**
+ *  XMNPhotoCollectionController 中配置collectionView的cell
+ *
+ *  @param item 具体的AssetModel
+ */
+- (void)configCellWithItem:(XMNAssetModel * _Nonnull )item {
     _asset = item;
     switch (item.type) {
         case XMNAssetTypeVideo:
@@ -53,7 +62,12 @@
 
 }
 
-- (void)configPreviewCellWithItem:(XMNAssetModel *)item {
+/**
+ *  XMNPhotoPicker 中配置collectionView的cell
+ *
+ *  @param item 具体的AssetModel
+ */
+- (void)configPreviewCellWithItem:(XMNAssetModel * _Nonnull )item {
     _asset = item;
     switch (item.type) {
         case XMNAssetTypeVideo:
@@ -75,6 +89,10 @@
     [self.contentView addGestureRecognizer:longPressGes];
     
 }
+
+/// ========================================
+/// @name   Private Methods
+/// ========================================
 
 - (void)_handleLongPress:(UILongPressGestureRecognizer *)longPressGes {
     if (longPressGes.state == UIGestureRecognizerStateBegan) {
@@ -100,7 +118,7 @@
             self.tempView.hidden = YES;
             self.photoImageView.hidden = NO;
             self.photoStateButton.hidden = NO;
-            self.didSendAsset ? self.didSendAsset(self.asset) : nil;
+            self.didSendAsset ? self.didSendAsset(self.asset, self.tempView.frame) : nil;
         }else {
             [UIView animateWithDuration:.2 animations:^{
                 self.tempView.center = self.startCenter;
@@ -114,9 +132,14 @@
     }
 }
 
+/**
+ *  处理stateButton的点击动作
+ *
+ *  @param sender button
+ */
 - (IBAction)_handleButtonAction:(UIButton *)sender {
     BOOL originState = sender.selected;
-    self.photoStateButton.selected = self.willChangeSelectedStateBlock ? self.willChangeSelectedStateBlock(sender) : NO;
+    self.photoStateButton.selected = self.willChangeSelectedStateBlock ? self.willChangeSelectedStateBlock(self.asset) : NO;
     if (self.photoStateButton.selected) {
         [UIView animationWithLayer:self.photoStateButton.layer type:XMNAnimationTypeBigger];
     }

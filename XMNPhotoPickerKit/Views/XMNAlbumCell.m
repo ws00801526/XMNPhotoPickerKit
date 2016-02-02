@@ -20,8 +20,7 @@
 @implementation XMNAlbumCell
 
 
-- (void)configCellWithItem:(XMNAlbumModel *)item {
-    self.titleLabel.text = item.name;
+- (void)configCellWithItem:(XMNAlbumModel * _Nonnull)item {
     
     NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:item.name attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor blackColor]}];
     NSAttributedString *countString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  (%zd)",item.count] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
