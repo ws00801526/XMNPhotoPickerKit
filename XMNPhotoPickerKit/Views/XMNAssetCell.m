@@ -96,6 +96,7 @@
 
 - (void)_handleLongPress:(UILongPressGestureRecognizer *)longPressGes {
     if (longPressGes.state == UIGestureRecognizerStateBegan) {
+        self.tempView.hidden = NO;
         self.startCenter = [self.photoImageView convertPoint:self.photoImageView.center toView:self.keyWindow];
         CGRect startFrame = [self.photoImageView convertRect:self.photoImageView.frame toView:self.keyWindow];
         [self.tempView setFrame:startFrame];
