@@ -15,7 +15,6 @@
 /** 具体的相册 */
 @property (nonatomic, strong) XMNAlbumModel *album;
 
-
 /**
  *  根据给定宽度 获取UICollectionViewLayout 实例
  *

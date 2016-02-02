@@ -17,6 +17,8 @@
 #import "XMNAssetCell.h"
 #import "XMNBottomBar.h"
 
+#import "UIViewController+XMNPhotoHUD.h"
+
 @interface XMNPhotoCollectionController ()
 
 /** 底部状态栏 */
@@ -130,16 +132,16 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
     __weak typeof(*&self) wSelf = self;
     
     // 设置assetCell willChangeBlock
-    [assetCell setWillChangeSelectedStateBlock:^BOOL(UIButton *button) {
-        if (!button.selected) {
-            __weak typeof(*&self) self = wSelf;
+    [assetCell setWillChangeSelectedStateBlock:^BOOL(XMNAssetModel *asset) {
+        __weak typeof(*&self) self = wSelf;
+        if (!asset.selected) {
             XMNPhotoPickerController *photoPickerC = (XMNPhotoPickerController *)self.navigationController;
-            if (self.selectedAssets.count < photoPickerC.maxCount) {
-                return YES;
-            }else{
-                [photoPickerC showAlertWithTitle:[NSString stringWithFormat:@"最多只能选择%ld张照片",photoPickerC.maxCount]];
+            if (asset.type == XMNAssetTypeVideo && self.selectedAssets.count > 0) {
+                NSLog(@"同时选择视频和图片,视频将作为图片发送");
+            }else if (self.selectedAssets.count > photoPickerC.maxCount) {
+                [self showAlertWithMessage:[NSString stringWithFormat:@"最多只能选择%ld张照片",photoPickerC.maxCount]];
             }
-            return self.selectedAssets.count < photoPickerC.maxCount;
+            return YES;
         }else {
             return NO;
         }
@@ -169,19 +171,31 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
         XMNVideoPreviewController *videoPreviewC = [[XMNVideoPreviewController alloc] init];
         videoPreviewC.selectedVideoEnable = self.selectedAssets.count == 0;
         videoPreviewC.asset = assetModel;
+        __weak typeof(*&self) wSelf = self;
+        [videoPreviewC setDidFinishPickingVideo:^(UIImage *coverImage, XMNAssetModel *asset) {
+            __weak typeof(*&self) self = wSelf;
+            [(XMNPhotoPickerController *)self.navigationController didFinishPickingVideo:asset];
+        }];
         [self.navigationController pushViewController:videoPreviewC animated:YES];
     }else {
         XMNPhotoPreviewController *previewC = [[XMNPhotoPreviewController alloc] initWithCollectionViewLayout:[XMNPhotoPreviewController photoPreviewViewLayoutWithSize:[UIScreen mainScreen].bounds.size]];
         previewC.assets = self.assets;
         previewC.selectedAssets = [NSMutableArray arrayWithArray:self.selectedAssets];
         previewC.currentIndex = indexPath.row;
+        previewC.maxCount = [(XMNPhotoPickerController *)self.navigationController maxCount];
         __weak typeof(*&self) wSelf = self;
-        [previewC setDidPreviewFinishBlock:^(NSArray<XMNAssetModel *> *selectedAssets) {
+        [previewC setDidFinishPreviewBlock:^(NSArray<XMNAssetModel *> *selectedAssets) {
             __weak typeof(*&self) self = wSelf;
             self.selectedAssets = [NSMutableArray arrayWithArray:selectedAssets];
             [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
             [self.collectionView reloadData];
         }];
+        
+        [previewC setDidFinishPickingBlock:^(NSArray<UIImage *> *images, NSArray<XMNAssetModel *> *selectedAssets) {
+           __weak typeof(*&self) self = wSelf;
+            [(XMNPhotoPickerController *)self.navigationController didFinishPickingPhoto:selectedAssets];
+        }];
+        
         [self.navigationController pushViewController:previewC animated:YES];
     }
     
