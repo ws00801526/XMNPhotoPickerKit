@@ -17,6 +17,7 @@
 
 
 #import "UIView+Animations.h"
+#import "UIViewController+XMNPhotoHUD.h"
 
 @interface XMNPhotoPreviewController ()
 
@@ -87,7 +88,7 @@ static NSString * const kXMNPhotoPreviewIdentifier = @"XMNPhotoPreviewCell";
 }
 
 - (void)_handleBackAction {
-    self.didPreviewFinishBlock ? self.didPreviewFinishBlock(self.selectedAssets) : nil;
+    self.didFinishPreviewBlock ? self.didFinishPreviewBlock(self.selectedAssets) : nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -97,16 +98,14 @@ static NSString * const kXMNPhotoPreviewIdentifier = @"XMNPhotoPreviewCell";
         self.assets[self.currentIndex].selected = NO;
         [self _updateTopBarStatus];
     }else {
-        XMNPhotoPickerController *pickerC = (XMNPhotoPickerController *)self.navigationController;
-        if (self.selectedAssets.count < pickerC.maxCount) {
+        if (self.selectedAssets.count < self.maxCount) {
             self.assets[self.currentIndex].selected = YES;
             [self.selectedAssets addObject:self.assets[self.currentIndex]];
             [self _updateTopBarStatus];
             [UIView animationWithLayer:self.stateButton.layer type:XMNAnimationTypeBigger];
         }else {
             //TODO 超过最大数量
-            NSLog(@"超过最大数量");
-            [pickerC showAlertWithTitle:[NSString stringWithFormat:@"最多只能选择%ld张照片",pickerC.maxCount]];
+            [self showAlertWithMessage:[NSString stringWithFormat:@"最多只能选择%ld张照片",self.maxCount]];
         }
     }
     [self.bottomBar updateBottomBarWithAssets:self.selectedAssets];
@@ -204,7 +203,11 @@ static NSString * const kXMNPhotoPreviewIdentifier = @"XMNPhotoPreviewCell";
         __weak typeof(*&self) wSelf = self;
         [_bottomBar setConfirmBlock:^{
             __weak typeof(*&self) self = wSelf;
-            [(XMNPhotoPickerController *)self.navigationController didFinishPickingPhoto:self.selectedAssets];
+            NSMutableArray *images = [NSMutableArray array];
+            [self.selectedAssets enumerateObjectsUsingBlock:^(XMNAssetModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [images addObject:obj];
+            }];
+            self.didFinishPickingBlock ? self.didFinishPickingBlock(images,self.selectedAssets) : nil;
         }];
     }
     return _bottomBar;

@@ -17,10 +17,17 @@
 @property (nonatomic, strong) NSMutableArray<XMNAssetModel *> *selectedAssets;
 
 /** 当用户更改了选择的图片,点击返回时,回调此block */
-@property (nonatomic, copy)   void(^didPreviewFinishBlock)( NSArray<XMNAssetModel *> *selectedAssets);
+@property (nonatomic, copy)   void(^didFinishPreviewBlock)( NSArray<XMNAssetModel *> *selectedAssets);
+
+/** 用户点击底部bottom按钮后 回调 */
+@property (nonatomic, copy)   void (^didFinishPickingBlock)(NSArray<UIImage *> *images ,NSArray<XMNAssetModel *> *assets);
+
 
 /** 当前显示的asset index */
 @property (nonatomic, assign) NSUInteger currentIndex;
+/** 最大选择数量 */
+@property (nonatomic, assign) NSUInteger maxCount;
+
 
 + (UICollectionViewLayout *)photoPreviewViewLayoutWithSize:(CGSize)size;
 
