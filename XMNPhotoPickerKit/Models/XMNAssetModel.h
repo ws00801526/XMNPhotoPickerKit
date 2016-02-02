@@ -49,14 +49,11 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy,   readonly) NSDictionary * _Nullable playerItemInfo;
 
 
-
-
 /** 是否被选中  默认NO */
 @property (nonatomic, assign) BOOL selected;
 
 
 #pragma mark - Methods
-
 
 
 /// ========================================

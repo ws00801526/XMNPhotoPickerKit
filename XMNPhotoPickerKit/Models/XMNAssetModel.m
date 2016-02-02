@@ -158,4 +158,9 @@
     _playerItemInfo = resultItemInfo;
     return _playerItemInfo;
 }
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"\n-------XMNAssetModel Desc Start-------\ntype : %d\nsuper :%@\n-------XMNAssetModel Desc End-------",(int)self.type,[super description]];
+}
 @end
