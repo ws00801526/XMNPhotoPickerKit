@@ -1,12 +1,8 @@
+## 思路
 
-
-1. XMNBaseRequesVM
-
-| 属性        | 作用           |
-| ------------- |:-------------:| 
-| requestCommand      | 处理请求的 | 
-| errorMsg     | 错误的信息,从requestCommand中获取      | 
-
+1. 为了兼容iOS7(`AssetsLibaray`),iOS8+(`PhotoKit`),统一使用一个单例类 `XMNPhotoManager` 来获取图片
+2. 使用`XMNAssetModel` 和`XMNAlbumModel` 封装下获取的result
+3. 自定义`XMNPhotoPickerController`继承`UINavigationController` 来作为选择图片的入口
 
 
 ##1. XMNPhotoPickerKit
@@ -43,14 +39,17 @@
 
 #####1.1.1.3. XMNPhotoManager : 获取所有专辑,专辑内照片视频等
 
+* iOS6,7 使用`AssetsLibaray` iOS8+使用`PhotoKit`
+* 使用单例模式,并且iOS8+使用了`PHCachingImageManager`在获取图片的时候缓存,保证`XMNPhotoCollectionController`的滑动流畅
+
 | 	方法        |  方法说明          | 作用 | 
 | ------------- |:-------------:| --- | 
 | hasAuthorized| classMethods | 判断是否授权 |
 | | 
-| requestOriginImageWithAsset:WithCompletion:      | getter方法 | 获取asset的原图  | 
-| requestThumbnailWithAsset:WithCompletion:     | getter方法   | 获取asset的对应的缩略图 |
-| requestPreviewImageWithAsset:WithCompletion: |  getter方法 | 获取asset对应的预览图,适应当前屏幕的尺寸 |  
-| imageOrientationWithAsset:WithCompletion: | getter方法  |获取对应asset的图片方向 | 
+| requestOriginImageWithAsset:WithCompletion:      |  方法 | 获取asset的原图  | 
+| requestThumbnailWithAsset:WithCompletion:     |  方法   | 获取asset的对应的缩略图 |
+| requestPreviewImageWithAsset:WithCompletion: |   方法 | 获取asset对应的预览图,适应当前屏幕的尺寸 |  
+| imageOrientationWithAsset:WithCompletion: |  方法  |获取对应asset的图片方向 | 
 
 ###1.2 照片选择ViewController
 ####1.2.1 XMNPhotoPickerController
