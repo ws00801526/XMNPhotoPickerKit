@@ -19,17 +19,17 @@ typedef enum : NSUInteger {
 #pragma mark - Properties
 
 /** 相册的名称 */
-@property (nonatomic, copy, readonly)   NSString *name;
+@property (nonatomic, copy, readonly, nonnull)   NSString *name;
 
 /** 照片的数量 */
 @property (nonatomic, assign, readonly) NSUInteger count;
 
 /** PHFetchResult<PHAsset> or ALAssetsGroup<ALAsset> */
-@property (nonatomic, strong, readonly) id fetchResult;
+@property (nonatomic, strong, readonly, nonnull) id fetchResult;
 
 #pragma mark - Methods
 
 
-+ (XMNAlbumModel *)albumWithResult:(id)result name:(NSString *)name;
++ (XMNAlbumModel * _Nonnull )albumWithResult:(_Nonnull id)result name:( NSString * _Nonnull )name;
 
 @end

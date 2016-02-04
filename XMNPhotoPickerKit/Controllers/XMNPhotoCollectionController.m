@@ -138,8 +138,11 @@ static NSString * const kXMNAssetCellIdentifier = @"XMNAssetCell";
             XMNPhotoPickerController *photoPickerC = (XMNPhotoPickerController *)self.navigationController;
             if (asset.type == XMNAssetTypeVideo && self.selectedAssets.count > 0) {
                 NSLog(@"同时选择视频和图片,视频将作为图片发送");
-            }else if (self.selectedAssets.count > photoPickerC.maxCount) {
+                [self showAlertWithMessage:@"同时选择视频和图片,视频将作为图片发送"];
+                return YES;
+            }else if (self.selectedAssets.count >= photoPickerC.maxCount) {
                 [self showAlertWithMessage:[NSString stringWithFormat:@"最多只能选择%ld张照片",photoPickerC.maxCount]];
+                return NO;
             }
             return YES;
         }else {

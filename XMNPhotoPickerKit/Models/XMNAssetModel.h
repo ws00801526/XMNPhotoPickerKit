@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 @interface XMNAssetModel : NSObject
 
 /** PHAsset or ALAsset */
-@property (nonatomic, strong, readonly) _Nonnull id asset;
+@property (nonatomic, strong, readonly, nonnull) id asset;
 /** asset  类型 */
 @property (nonatomic, assign, readonly) XMNAssetType type;
 
@@ -29,11 +29,11 @@ typedef enum : NSUInteger {
 /// ========================================
 
 /** 获取照片asset对应的原图 */
-@property (nonatomic, strong, readonly) UIImage * _Nullable originImage;
+@property (nonatomic, strong, readonly, nullable) UIImage * originImage;
 /** 获取照片asset对应的缩略图, 默认缩略图大小 80x80 */
-@property (nonatomic, strong, readonly, getter=thumbnail) UIImage * _Nullable thumbnail;
+@property (nonatomic, strong, readonly, getter=thumbnail, nullable) UIImage *thumbnail;
 /** 获取照片asset的预览图,默认大小 [UIScreen mainScreen].bounds.size */
-@property (nonatomic, strong, readonly) UIImage * _Nullable previewImage;
+@property (nonatomic, strong, readonly, nullable) UIImage * previewImage;
 /** 获取照片的方向 */
 @property (nonatomic, assign, readonly) UIImageOrientation imageOrientation;
 
@@ -42,11 +42,11 @@ typedef enum : NSUInteger {
 /// ========================================
 
 /** asset为Video时 video的时长 */
-@property (nonatomic, copy,   readonly) NSString * _Nullable timeLength;
+@property (nonatomic, copy,   readonly, nullable) NSString * timeLength;
 /** 视频的播放item */
-@property (nonatomic, strong, readonly) AVPlayerItem * _Nullable playerItem;
+@property (nonatomic, strong, readonly, nullable) AVPlayerItem * playerItem;
 /** 视频播放item的信息 */
-@property (nonatomic, copy,   readonly) NSDictionary * _Nullable playerItemInfo;
+@property (nonatomic, copy,   readonly, nullable) NSDictionary * playerItemInfo;
 
 
 /** 是否被选中  默认NO */

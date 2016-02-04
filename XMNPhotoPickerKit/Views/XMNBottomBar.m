@@ -91,6 +91,7 @@
     
     //config previewButton
     self.previewButton.hidden = barType == XMNPreviewBottomBar;
+    self.previewButton.hidden = YES;
     self.previewButton.enabled = NO;
     [self.previewButton setTitle:@"预览" forState:UIControlStateNormal];
     [self.previewButton setTitle:@"预览" forState:UIControlStateDisabled];
