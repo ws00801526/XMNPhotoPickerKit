@@ -91,7 +91,7 @@
 - (void)showPhotoPickerwithController:(UIViewController *)controller animated:(BOOL)animated {
     [self.selectedAssets removeAllObjects];
     [self.assets makeObjectsPerformSelector:@selector(setSelected:) withObject:@(NO)];
-    [self _updateCancelButton];
+    [self _updatePhotoLibraryButton];
     [self.collectionView setContentOffset:CGPointZero];
     [self.collectionView reloadData];
     self.hidden = NO;
@@ -204,7 +204,7 @@
     }
 }
 
-- (void)_updateCancelButton {
+- (void)_updatePhotoLibraryButton {
     if (self.selectedAssets.count == 0) {
         self.photoLibraryButton.tag = kXMNPhotoLibrary;
         [self.photoLibraryButton setTitle:[NSString stringWithFormat:@"相册"] forState:UIControlStateNormal];
@@ -293,7 +293,7 @@
             [self.selectedAssets containsObject:asset] ? [self.selectedAssets removeObject:asset] : nil;
             asset.selected = NO;
         }
-        [self _updateCancelButton];
+        [self _updatePhotoLibraryButton];
     }];
     
     [assetCell setDidSendAsset:^(XMNAssetModel *asset, CGRect frame) {
@@ -339,6 +339,7 @@
         [previewC setDidFinishPreviewBlock:^(NSArray<XMNAssetModel *> *selectedAssets) {
             __weak typeof(*&self) self = wSelf;
             self.selectedAssets = [NSMutableArray arrayWithArray:selectedAssets];
+            [self _updatePhotoLibraryButton];
             [self.collectionView reloadData];
             [self.parentController dismissViewControllerAnimated:YES completion:nil];
         }];
