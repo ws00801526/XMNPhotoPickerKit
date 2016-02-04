@@ -83,11 +83,13 @@
     self.photoStateButton.selected = item.selected;
     self.photoImageView.image = item.previewImage;
     
+    
     UILongPressGestureRecognizer *longPressGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handleLongPress:)];
     longPressGes.numberOfTouchesRequired =1;
     longPressGes.minimumPressDuration = .1f;
-    [self.contentView addGestureRecognizer:longPressGes];
-    
+    [self.photoImageView addGestureRecognizer:longPressGes];
+    self.photoImageView.userInteractionEnabled = YES;
+
 }
 
 /// ========================================
@@ -96,7 +98,11 @@
 
 - (void)_handleLongPress:(UILongPressGestureRecognizer *)longPressGes {
     if (longPressGes.state == UIGestureRecognizerStateBegan) {
+        //开始手势,显示tempView,隐藏tipsLabel,photoImageView,photoStateButton
         self.tempView.hidden = NO;
+        self.tempTipsLabel.hidden = YES;
+        
+        //记录其实center
         self.startCenter = [self.photoImageView convertPoint:self.photoImageView.center toView:self.keyWindow];
         CGRect startFrame = [self.photoImageView convertRect:self.photoImageView.frame toView:self.keyWindow];
         [self.tempView setFrame:startFrame];
