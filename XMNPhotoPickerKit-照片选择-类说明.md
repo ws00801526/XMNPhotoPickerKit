@@ -1,11 +1,7 @@
+## 思路
 
-
-1. XMNBaseRequesVM
-
-| 属性        | 作用           |
-| ------------- |:-------------:| 
-| requestCommand      | 处理请求的 | 
-| errorMsg     | 错误的信息,从requestCommand中获取      | 
+1. 为了兼容iOS7(`AssetsLibaray`),iOS8+(`PhotoKit`),统一使用一个单例类 `XMNPhotoManager` 来获取图片
+2. 使用`XMNAssetModel` 和`XMNAlbumModel` 封装下获取的result
 
 
 
