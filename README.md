@@ -1,7 +1,8 @@
 ##XMNPhotoPickerKit
 > 一款图片,视频选择类库
 
-
+##此版本不在更新,请点击传送门获取最新的版本
+##[传送门](https://github.com/ws00801526/XMNPhotoPickerFramework)
 --------
 
 ###1. 预览
